@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pomorillo.Application.Dtos\Pomorillo.Application.Dtos.csproj" />
+    <ProjectReference Include="..\Pomorillo.Domain\Pomorillo.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
