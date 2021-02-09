@@ -1,2 +1,2 @@
-# PomoPlanner
-A desktop app to manage pomodoro technique work
+# Pomorillo
+A desktop app to manage The Pomodoro Technique working, a productivity technique developed by Francesco Cirillo.
