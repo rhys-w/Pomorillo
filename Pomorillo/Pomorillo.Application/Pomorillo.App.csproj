@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pomorillo.Application.Dtos\Pomorillo.Application.Dtos.csproj" />
+    <ProjectReference Include="..\Pomorillo.Application.Dtos\Pomorillo.App.Dtos.csproj" />
     <ProjectReference Include="..\Pomorillo.Domain\Pomorillo.Domain.csproj" />
   </ItemGroup>
 

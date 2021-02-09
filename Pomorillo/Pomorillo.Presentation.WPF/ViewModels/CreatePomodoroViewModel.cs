@@ -1,6 +1,4 @@
-﻿using Pomorillo.Application.Interfaces;
-using Prism.Commands;
-using System;
+﻿using Prism.Commands;
 
 namespace Pomorillo.Presentation.WPF.ViewModels
 {

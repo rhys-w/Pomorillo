@@ -11,11 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pomorillo.Application\Pomorillo.Application.csproj" />
+    <ProjectReference Include="..\Pomorillo.Application\Pomorillo.App.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Converters\" />
   </ItemGroup>
-
+  
 </Project>

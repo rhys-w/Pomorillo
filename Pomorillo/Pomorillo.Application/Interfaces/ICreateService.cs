@@ -1,6 +1,6 @@
-﻿using Pomorillo.Application.Dtos;
+﻿using Pomorillo.App.Dtos;
 
-namespace Pomorillo.Application.Interfaces
+namespace Pomorillo.App.Interfaces
 {
     public interface ICreateService
     {

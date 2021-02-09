@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomorillo.Presentation.WPF"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomorillo.Domain", "Pomorillo.Domain\Pomorillo.Domain.csproj", "{BE3C74EF-7A08-485A-85A7-6E511560238C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomorillo.Application", "Pomorillo.Application\Pomorillo.Application.csproj", "{47F3A422-CFF1-4DC7-B564-9218BBE18CDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomorillo.App", "Pomorillo.Application\Pomorillo.App.csproj", "{47F3A422-CFF1-4DC7-B564-9218BBE18CDA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{BE2560BF-2B8B-43BC-A678-62DEECCC9700}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomorillo.Application.Dtos", "Pomorillo.Application.Dtos\Pomorillo.Application.Dtos.csproj", "{4D040806-C7B1-4B75-8772-2FF325C16FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomorillo.App.Dtos", "Pomorillo.Application.Dtos\Pomorillo.App.Dtos.csproj", "{4D040806-C7B1-4B75-8772-2FF325C16FDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

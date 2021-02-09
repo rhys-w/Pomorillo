@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pomorillo.Application.Dtos
+namespace Pomorillo.App.Dtos
 {
     public class PomodoroCreateDto
     {
