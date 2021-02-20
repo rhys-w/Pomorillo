@@ -7,23 +7,25 @@ namespace Pomorillo.WPFApplication.Implementations
 {
     public class SystemSoundNotiService : INotificationService
     {
-        private int _delayBetweenSounds = 5000;
+        private int _delayBetweenSounds = 10000;
 
-        public async Task SoundBreakFinishedAlarmAsync(CancellationToken token)
+        public async Task SoundBreakFinishedAlarmAsync(bool muted, CancellationToken token)
         {
             while (token.IsCancellationRequested == false)
             {
-                SystemSounds.Beep.Play();
-                await Task.Delay(_delayBetweenSounds);
+                if (muted == false)
+                    SystemSounds.Beep.Play();
+                await Task.Delay(_delayBetweenSounds, token).ContinueWith((t) => { });
             }
         }
 
-        public async Task SoundWorkFinishedAlarmAsync(CancellationToken token)
+        public async Task SoundWorkFinishedAlarmAsync(bool muted, CancellationToken token)
         {
             while (token.IsCancellationRequested == false)
             {
-                SystemSounds.Beep.Play();
-                await Task.Delay(_delayBetweenSounds);
+                if (muted == false)
+                    SystemSounds.Beep.Play();
+                await Task.Delay(_delayBetweenSounds, token).ContinueWith((t) => { });
             }
         }
     }

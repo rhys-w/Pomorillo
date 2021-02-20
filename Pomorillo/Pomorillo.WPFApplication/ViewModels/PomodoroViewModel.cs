@@ -197,7 +197,7 @@ namespace Pomorillo.WPFApplication.ViewModels
         {
             IsStopVisible = true;
 
-            await _notificationService.SoundWorkFinishedAlarmAsync(token);
+            await _notificationService.SoundWorkFinishedAlarmAsync(false, token);
 
             IsStopVisible = false;
         }
@@ -206,7 +206,7 @@ namespace Pomorillo.WPFApplication.ViewModels
         {
             IsStopVisible = true;
 
-            await _notificationService.SoundBreakFinishedAlarmAsync(token);
+            await _notificationService.SoundBreakFinishedAlarmAsync(false, token);
 
             IsStopVisible = false;
         } 

@@ -5,7 +5,7 @@ namespace Pomorillo.WPFApplication.Interfaces
 {
     public interface INotificationService
     {
-        Task SoundWorkFinishedAlarmAsync(CancellationToken token);
-        Task SoundBreakFinishedAlarmAsync(CancellationToken token);
+        Task SoundWorkFinishedAlarmAsync(bool muted, CancellationToken token);
+        Task SoundBreakFinishedAlarmAsync(bool muted, CancellationToken token);
     }
 }
