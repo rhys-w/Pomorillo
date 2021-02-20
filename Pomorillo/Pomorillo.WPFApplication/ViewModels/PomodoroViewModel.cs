@@ -1,7 +1,6 @@
 ﻿using Pomorillo.WPFApplication.Interfaces;
 using Prism.Commands;
 using System;
-using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 
