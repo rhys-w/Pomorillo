@@ -1,5 +1,7 @@
-﻿using Prism.Commands;
+﻿using Pomorillo.WPFApplication.Interfaces;
+using Prism.Commands;
 using System;
+using System.Media;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,14 +13,14 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         private int _workingTimeMins;
         private int _breakTimeMins;
-        private bool _isCancelEnabled;
         private bool _isRunning;
+        private bool _isStopVisible;
         private TimeSpan _remainingTime;
         private int _maxWorkingTime;
-        private TimeSpan _workingTime;
         private int _maxBreakTime;
-        private TimeSpan _breakTime;
-        private CancellationTokenSource _tokenSource;
+        private CancellationTokenSource _countdownTokenSource;
+        private CancellationTokenSource _alarmTokenSource;
+        private readonly INotificationService _notificationService;
 
         #endregion
 
@@ -70,8 +72,17 @@ namespace Pomorillo.WPFApplication.ViewModels
             }
         }
 
+        public bool IsStopVisible
+        {
+            get { return _isStopVisible; }
+            set 
+            { 
+                _isStopVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsStartVisible => !IsRunning;
-        //public bool IsStopVisible => IsRunning;
         public bool IsSetupEnabled => !IsRunning;
         public bool IsCountdownVisible => IsRunning;
         public bool IsCancelEnabled => IsRunning;
@@ -96,7 +107,7 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         #endregion
 
-        public PomodoroViewModel()
+        public PomodoroViewModel(INotificationService notificationService)
         {
             StartTimerCommand = new DelegateCommand(OnStartClick);
             StopTimerCommand = new DelegateCommand(OnStopClick);
@@ -104,6 +115,7 @@ namespace Pomorillo.WPFApplication.ViewModels
 
             _maxWorkingTime = 120;
             _maxBreakTime = 30;
+            _notificationService = notificationService;
         }
 
         private void OnStartClick()
@@ -116,12 +128,13 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         private void OnStopClick()
         {
-            
+            _alarmTokenSource?.Cancel();
         }
 
         private void OnCancelClick()
         {
-            _tokenSource?.Cancel();
+            _countdownTokenSource?.Cancel();
+            _alarmTokenSource?.Cancel();
         }
 
         private bool IsTimeSpanOk(int proposedMins, double maxMins)
@@ -131,17 +144,30 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         private async void StartCountdown()
         {
-            _tokenSource?.Cancel();
-            _tokenSource = new CancellationTokenSource();
+            _countdownTokenSource?.Cancel();
+            _countdownTokenSource = new CancellationTokenSource();
+
+            _alarmTokenSource?.Cancel();
+            _alarmTokenSource = new CancellationTokenSource();
+
             var workingTime = TimeSpan.FromMinutes(_workingTimeMins);
             var breakTime = TimeSpan.FromMinutes(_breakTimeMins);
 
             IsRunning = true;
 
-            await StartTimeCountdown(workingTime, _tokenSource.Token);
+            await StartTimeCountdown(workingTime, _countdownTokenSource.Token);
 
-            if (_tokenSource.Token.IsCancellationRequested == false)
-                await StartTimeCountdown(breakTime, _tokenSource.Token);
+            if (_countdownTokenSource.Token.IsCancellationRequested == false)
+                await RunWorkTimeFinishedAlarm(_alarmTokenSource.Token);
+
+            if (_alarmTokenSource.Token.IsCancellationRequested == true && _countdownTokenSource.Token.IsCancellationRequested == false)
+                _alarmTokenSource = new CancellationTokenSource();
+
+            if (_countdownTokenSource.Token.IsCancellationRequested == false)
+                await StartTimeCountdown(breakTime, _countdownTokenSource.Token);
+
+            if (_countdownTokenSource.Token.IsCancellationRequested == false)
+                await RunBreakTimeFinishedAlarm(_alarmTokenSource.Token);
 
             IsRunning = false;
         }
@@ -166,5 +192,23 @@ namespace Pomorillo.WPFApplication.ViewModels
 
             RemainingTime = TimeSpan.Zero;
         }
+
+        private async Task RunWorkTimeFinishedAlarm(CancellationToken token)
+        {
+            IsStopVisible = true;
+
+            await _notificationService.SoundWorkFinishedAlarmAsync(token);
+
+            IsStopVisible = false;
+        }
+
+        private async Task RunBreakTimeFinishedAlarm(CancellationToken token)
+        {
+            IsStopVisible = true;
+
+            await _notificationService.SoundBreakFinishedAlarmAsync(token);
+
+            IsStopVisible = false;
+        } 
     }
 }
