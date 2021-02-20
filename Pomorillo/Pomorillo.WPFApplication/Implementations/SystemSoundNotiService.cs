@@ -15,7 +15,7 @@ namespace Pomorillo.WPFApplication.Implementations
             {
                 if (muted == false)
                     SystemSounds.Beep.Play();
-                await Task.Delay(_delayBetweenSounds, token).ContinueWith((t) => { });
+                await Task.Delay(_delayBetweenSounds, token).ContinueWith((t) => { }); // TODO - code smell... fine for now.
             }
         }
 
