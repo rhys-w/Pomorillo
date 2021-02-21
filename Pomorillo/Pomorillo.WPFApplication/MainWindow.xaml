@@ -23,8 +23,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-
-            <Image Source="/Images/EggTimerIcon1.png" Height="25"/>
+            
+            <StackPanel Grid.Column="0" FlowDirection="LeftToRight" Orientation="Horizontal">
+                <Image Source="/Images/EggTimerIcon1.png" 
+                       Height="25"/>
+                <Label Content="Pomorillo"
+                       Style="{StaticResource PomorilloMediumLabelStyle}"/>
+            </StackPanel>
             
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal" 

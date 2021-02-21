@@ -98,7 +98,13 @@
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
     </Style>
-    
+
+    <Style x:Key="PomorilloMediumLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="{StaticResource RegularFontSize}"/>
+    </Style>
+
     <!-- Coutndown Style. -->
     <Style x:Key="PomorilloCountdownStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{StaticResource B}"/>
