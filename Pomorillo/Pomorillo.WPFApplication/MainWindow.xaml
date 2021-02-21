@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pomorillo.WPFApplication" xmlns:views="clr-namespace:Pomorillo.WPFApplication.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Pomorillo" 
+        Height="150" Width="300">
     <Grid>
         <!--<views:PomodoroView/>-->
         <views:ShellView/>

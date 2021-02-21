@@ -74,7 +74,6 @@ namespace Pomorillo.WPFApplication.ViewModels
             get { return _customTimeMins; }
             set
             {
-                if (value == _customTimeMins) return;
                 if (value < 0)
                     value = 0;
                 else if (value > _maxCustomTime)
@@ -96,6 +95,34 @@ namespace Pomorillo.WPFApplication.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get { return _isRunning; }
+            set 
+            { 
+                _isRunning = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsStartButtonVisible));
+            }
+        }
+
+        private bool _isAlarming;
+        public bool IsAlarming
+        {
+            get { return _isAlarming; }
+            set 
+            {
+                _isAlarming = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsStartButtonVisible));
+                OnPropertyChanged(nameof(IsStopButtonVisible));
+            }
+        }
+
+        public bool IsStartButtonVisible => IsRunning == false && IsAlarming == false;
+        public bool IsStopButtonVisible => IsAlarming;
 
         public DelegateCommand RegPomCommand { get; }
         public DelegateCommand ShortBreakCommand { get; }
@@ -170,6 +197,8 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         private async Task OnStartClick()
         {
+            if (IsRunning || IsAlarming) return;
+
             _notificationTokenSource?.Cancel();
             _notificationTokenSource = new CancellationTokenSource();
             _countdownTokenSource?.Cancel();
@@ -188,17 +217,20 @@ namespace Pomorillo.WPFApplication.ViewModels
 
         private async Task InformUserTimeIsUp(CancellationToken notificationToken)
         {
+            IsAlarming = true;
             RemainingTime = TimeSpan.Zero;
             if (_currentCountdownType == CountdownType.Work)
                 await _notificationService.SoundWorkFinishedAlarmAsync(IsMuted, notificationToken);
             else
                 await _notificationService.SoundBreakFinishedAlarmAsync(IsMuted, notificationToken);
+            IsAlarming = false;
         }
 
         private async Task StartTimeCountdownAsync(CancellationToken token)
         {
-            var interval = TimeSpan.FromMilliseconds(100);
+            IsRunning = true;
 
+            var interval = TimeSpan.FromMilliseconds(100);
             var startTime = DateTime.UtcNow;
             var endTime = startTime + RemainingTime;
             var remainingTime = endTime - startTime;
@@ -212,11 +244,14 @@ namespace Pomorillo.WPFApplication.ViewModels
                 await Task.Delay(interval);
                 remainingTime = endTime - DateTime.UtcNow;
             }
+
+            IsRunning = false;
         }
 
         private void OnStopClick()
         {
             _notificationTokenSource?.Cancel();
+            RemainingTime = _currentTimeSpan;
         }
 
         private void OnPauseClick()
