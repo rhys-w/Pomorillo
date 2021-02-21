@@ -19,7 +19,16 @@
         <Grid Grid.Row="0" 
               Background="{StaticResource G}"
               MouseDown="TitleBar_MouseDown">
-            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/Images/EggTimerIcon1.png" Height="25"/>
+            
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal" 
+                        FlowDirection="RightToLeft">
                 <Button Content="X"
                         Click="CloseButtonClick" 
                         Style="{StaticResource PomorilloButtonStyle1}"
