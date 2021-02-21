@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="Pomorillo.WPFApplication.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pomorillo.WPFApplication.Views" 
+             xmlns:conv="clr-namespace:Pomorillo.WPFApplication.Converters" 
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <conv:TimeSpanRoundUpConverter x:Key="timeSpanRoundUpConverter"/>
+        <s:TimeSpan x:Key="timeSpanRoundTo1">00:00:01</s:TimeSpan>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Setup. -->
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <!-- Setup a regular pomodoro. -->
+            <ToggleButton Content="Pomodoro" 
+                          Command="{Binding RegPomCommand}" 
+                          IsChecked="{Binding IsPomodoroSelected}"/>
+            
+            <!-- Setup a short break. -->
+            <ToggleButton Content="Short Break" 
+                          Command="{Binding ShortBreakCommand}"
+                          IsChecked="{Binding IsShortBreakSelected}"/>
+            
+            <!-- Setup a long break. -->
+            <ToggleButton Content="Long Break" 
+                          Command="{Binding LongBreakCommand}"
+                          IsChecked="{Binding IsLongBreakSelected}"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <!-- Mute. -->
+                <Label Grid.Column="0" Grid.Row="0" Content="Mute:"/>
+                <CheckBox Grid.Column="1" Grid.Row="0" 
+                          VerticalAlignment="Center" 
+                          IsChecked="{Binding IsMuted}"/>
+
+                <!-- Custom. -->
+                <Label Grid.Column="0" Grid.Row="1" Content="Custom:"/>
+                <CheckBox Grid.Column="1" Grid.Row="1" 
+                          VerticalAlignment="Center" 
+                          IsChecked="{Binding IsCustomInUse}"/>
+
+                <!-- Custom Time. -->
+                <Label Grid.Column="0" Grid.Row="2" 
+                       Content="Time:" 
+                       IsEnabled="{Binding IsCustomInUse}"/>
+                <TextBox Grid.Column="1" Grid.Row="2" 
+                         Text="{Binding CustomTimeMins, UpdateSourceTrigger=PropertyChanged}" 
+                         IsEnabled="{Binding IsCustomInUse}"/>
+            </Grid>
+        </StackPanel>
+        
+        <!-- Running. -->
+        <DockPanel Grid.Column="1" LastChildFill="True">
+            <!-- Pomodoro management commands. -->
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                <Button Content="Start"
+                        Command="{Binding StartCommand}"/>
+
+                <Button Content="Stop"
+                        Command="{Binding StopCommand}"/>
+
+                <Button Content="Pause"
+                        Command="{Binding PauseCommand}"/>
+
+                <Button Content="Reset"
+                        Command="{Binding ResetCommand}"/>
+            </StackPanel>
+            
+            <!-- Countdown timer. -->
+            <TextBlock Text="{Binding RemainingTime, StringFormat=h\\:mm\\:ss, Converter={StaticResource timeSpanRoundUpConverter}, ConverterParameter={StaticResource timeSpanRoundTo1}}"
+                       FontSize="60"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

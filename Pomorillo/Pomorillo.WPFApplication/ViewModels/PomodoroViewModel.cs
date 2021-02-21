@@ -112,7 +112,7 @@ namespace Pomorillo.WPFApplication.ViewModels
             StopTimerCommand = new DelegateCommand(OnStopClick);
             CancelTimerCommand = new DelegateCommand(OnCancelClick);
 
-            _maxWorkingTime = 120;
+            _maxWorkingTime = 60;
             _maxBreakTime = 30;
             _notificationService = notificationService;
         }

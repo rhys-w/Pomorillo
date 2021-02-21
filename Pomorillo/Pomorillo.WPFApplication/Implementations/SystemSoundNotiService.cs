@@ -7,7 +7,7 @@ namespace Pomorillo.WPFApplication.Implementations
 {
     public class SystemSoundNotiService : INotificationService
     {
-        private int _delayBetweenSounds = 10000;
+        private int _delayBetweenSounds = 3000;
 
         public async Task SoundBreakFinishedAlarmAsync(bool muted, CancellationToken token)
         {
