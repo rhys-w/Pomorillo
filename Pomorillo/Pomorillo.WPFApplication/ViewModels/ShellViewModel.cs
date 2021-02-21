@@ -18,6 +18,8 @@ namespace Pomorillo.WPFApplication.ViewModels
         private CancellationTokenSource _notificationTokenSource;
         private CountdownType _currentCountdownType;
 
+        private readonly INotificationService _notificationService;
+
         private bool _isPomodoroSelected;
         public bool IsPomodoroSelected
         {
@@ -66,20 +68,6 @@ namespace Pomorillo.WPFApplication.ViewModels
             }
         }
 
-        private bool _isCustomInUse;
-
-        public bool IsCustomInUse
-        {
-            get { return _isCustomInUse; }
-            set 
-            {
-                if (value == _isCustomInUse) return;
-                _isCustomInUse = value;
-                OnCustomInUseClick();
-                OnPropertyChanged();
-            }
-        }
-
         private int _customTimeMins;
         public int CustomTimeMins
         {
@@ -94,13 +82,11 @@ namespace Pomorillo.WPFApplication.ViewModels
 
                 _customTimeMins = value;
                 OnPropertyChanged();
-                RemainingTime = TimeSpan.FromMinutes(_customTimeMins);
+                OnCustomTimerChange();
             }
         }
 
         private TimeSpan _remainingTime;
-        private readonly INotificationService _notificationService;
-
         public TimeSpan RemainingTime
         {
             get { return _remainingTime; }
@@ -144,7 +130,6 @@ namespace Pomorillo.WPFApplication.ViewModels
             IsPomodoroSelected = true;
             IsShortBreakSelected = false;
             IsLongBreakSelected = false;
-            IsCustomInUse = false;
 
             _currentTimeSpan = TimeSpan.FromMinutes(_pomodoroTime);
             RemainingTime = _currentTimeSpan;
@@ -157,7 +142,6 @@ namespace Pomorillo.WPFApplication.ViewModels
             IsPomodoroSelected = false;
             IsShortBreakSelected = true;
             IsLongBreakSelected = false;
-            IsCustomInUse = false;
 
             _currentTimeSpan = TimeSpan.FromMinutes(_shortBreakTime);
             RemainingTime = _currentTimeSpan;
@@ -169,25 +153,19 @@ namespace Pomorillo.WPFApplication.ViewModels
             IsPomodoroSelected = false;
             IsShortBreakSelected = false;
             IsLongBreakSelected = true;
-            IsCustomInUse = false;
 
             _currentTimeSpan = TimeSpan.FromMinutes(_longBreakTime);
             RemainingTime = _currentTimeSpan;
             _currentCountdownType = CountdownType.Break;
         }
 
-        private void OnCustomInUseClick()
+        private void OnCustomTimerChange()
         {
-            if (_isCustomInUse)
-            {
-                IsPomodoroSelected = false;
-                IsShortBreakSelected = false;
-                IsLongBreakSelected = false;
-                RemainingTime = TimeSpan.FromMinutes(CustomTimeMins);
-                _currentCountdownType = CountdownType.Work;
-            }
-            else
-                OnRegPomClick();
+            IsPomodoroSelected = false;
+            IsShortBreakSelected = false;
+            IsLongBreakSelected = false;
+            RemainingTime = TimeSpan.FromMinutes(_customTimeMins);
+            _currentCountdownType = CountdownType.Work;
         }
 
         private async Task OnStartClick()

@@ -53,19 +53,11 @@
                           VerticalAlignment="Center" 
                           IsChecked="{Binding IsMuted}"/>
 
-                <!-- Custom. -->
-                <Label Grid.Column="0" Grid.Row="1" Content="Custom:"/>
-                <CheckBox Grid.Column="1" Grid.Row="1" 
-                          VerticalAlignment="Center" 
-                          IsChecked="{Binding IsCustomInUse}"/>
-
                 <!-- Custom Time. -->
                 <Label Grid.Column="0" Grid.Row="2" 
-                       Content="Time:" 
-                       IsEnabled="{Binding IsCustomInUse}"/>
+                       Content="Time:" />
                 <TextBox Grid.Column="1" Grid.Row="2" 
-                         Text="{Binding CustomTimeMins, UpdateSourceTrigger=PropertyChanged}" 
-                         IsEnabled="{Binding IsCustomInUse}"/>
+                         Text="{Binding CustomTimeMins, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </StackPanel>
         
