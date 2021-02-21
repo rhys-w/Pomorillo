@@ -7,7 +7,7 @@
              xmlns:conv="clr-namespace:Pomorillo.WPFApplication.Converters" 
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="250">
+             d:DesignHeight="160" d:DesignWidth="500">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
         <conv:TimeSpanRoundUpConverter x:Key="TimeSpanRoundUpConverter"/>
@@ -17,8 +17,9 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="130"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="130"/>
         </Grid.ColumnDefinitions>
         
         <!-- Setup. -->
@@ -27,74 +28,90 @@
             <ToggleButton Content="Pomodoro" 
                           Command="{Binding RegPomCommand}" 
                           IsChecked="{Binding IsPomodoroSelected}"
-                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"/>
+                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"
+                          Style="{StaticResource PomorilloToggleButtonStyle}"/>
             
             <!-- Setup a short break. -->
             <ToggleButton Content="Short Break" 
                           Command="{Binding ShortBreakCommand}"
                           IsChecked="{Binding IsShortBreakSelected}"
-                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"/>
+                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"
+                          Style="{StaticResource PomorilloToggleButtonStyle}"/>
             
             <!-- Setup a long break. -->
             <ToggleButton Content="Long Break" 
                           Command="{Binding LongBreakCommand}"
                           IsChecked="{Binding IsLongBreakSelected}"
-                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"/>
+                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"
+                          Style="{StaticResource PomorilloToggleButtonStyle}"/>
 
-            <Grid>
+            <Grid Margin="5 2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
 
                 <!-- Custom Time. -->
-                <Label Grid.Column="0" Grid.Row="0" 
+                <Label Grid.Column="0"
                        Content="Time:" 
-                       IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"/>
-                <TextBox Grid.Column="1" Grid.Row="0" 
+                       IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"
+                       Style="{StaticResource PomorilloLabelStyle}"/>
+                <TextBox Grid.Column="1"
                          Text="{Binding CustomTimeMins, UpdateSourceTrigger=PropertyChanged}" 
                          IsEnabled="{Binding IsRunning, Converter={StaticResource OppBool}}"
                          VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Right"/>
 
-                <!-- Mute. -->
-                <Label Grid.Column="0" Grid.Row="1" Content="Mute:"/>
-                <CheckBox Grid.Column="1" Grid.Row="1" 
-                          VerticalAlignment="Center" 
-                          IsChecked="{Binding IsMuted}"/>
+
             </Grid>
         </StackPanel>
         
-        <!-- Running. -->
-        <DockPanel Grid.Column="1" LastChildFill="True">
-            <!-- Pomodoro management commands. -->
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                <Button Content="Start"
-                        Command="{Binding StartCommand}"
-                        Visibility="{Binding IsStartButtonVisible, Converter={StaticResource BoolToVis}}"
-                        IsDefault="True"/>
+        <!-- Countdown timer. -->
+        <TextBlock Grid.Column="1"
+                   Text="{Binding RemainingTime, 
+                    StringFormat=h\\:mm\\:ss, 
+                    Converter={StaticResource TimeSpanRoundUpConverter}, ConverterParameter={StaticResource timeSpanRoundTo1}, 
+                    FallbackValue=0:25:00}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource PomorilloCountdownStyle}"/>
 
-                <Button Content="Stop"
-                        Command="{Binding StopCommand}" 
-                        Visibility="{Binding IsStopButtonVisible, Converter={StaticResource BoolToVis}}"/>
+        <!-- Pomodoro management commands. -->
+        <StackPanel Grid.Column="2" DockPanel.Dock="Bottom" Orientation="Vertical">
+            <Button Content="Start"
+                    Command="{Binding StartCommand}"
+                    Visibility="{Binding IsStartButtonVisible, Converter={StaticResource BoolToVis}}"
+                    IsDefault="True"
+                    Style="{StaticResource PomorilloButtonStyle1}"/>
 
-                <Button Content="Pause"
-                        Command="{Binding PauseCommand}"
-                        IsCancel="True"/>
+            <Button Content="Stop"
+                    Command="{Binding StopCommand}" 
+                    Visibility="{Binding IsStopButtonVisible, Converter={StaticResource BoolToVis}}"
+                    Style="{StaticResource PomorilloButtonStyle1}"/>
 
-                <Button Content="Reset"
-                        Command="{Binding ResetCommand}"/>
-            </StackPanel>
-            
-            <!-- Countdown timer. -->
-            <TextBlock Text="{Binding RemainingTime, StringFormat=h\\:mm\\:ss, Converter={StaticResource TimeSpanRoundUpConverter}, ConverterParameter={StaticResource timeSpanRoundTo1}}"
-                       FontSize="60"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-        </DockPanel>
+            <Button Content="Pause"
+                    Command="{Binding PauseCommand}"
+                    IsCancel="True"
+                    Style="{StaticResource PomorilloButtonStyle2}"/>
+
+            <Button Content="Reset"
+                    Command="{Binding ResetCommand}"
+                    Style="{StaticResource PomorilloButtonStyle2}"/>
+
+            <DockPanel LastChildFill="True" Margin="10 0" HorizontalAlignment="Right">
+                <!-- Mute. -->
+                <Label Content="Mute:"
+                       Style="{StaticResource PomorilloLabelStyle}" Margin="5 0"/>
+                <CheckBox VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          IsChecked="{Binding IsMuted}">
+                    <CheckBox.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform Y="1"/> <!-- Centre aligning the checkbox. -->
+                        </TransformGroup>
+                    </CheckBox.RenderTransform>
+                </CheckBox>           
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

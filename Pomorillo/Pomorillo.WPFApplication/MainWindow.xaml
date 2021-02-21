@@ -3,12 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pomorillo.WPFApplication" xmlns:views="clr-namespace:Pomorillo.WPFApplication.Views"
+        xmlns:local="clr-namespace:Pomorillo.WPFApplication" 
+        xmlns:views="clr-namespace:Pomorillo.WPFApplication.Views"
         mc:Ignorable="d"
         Title="Pomorillo" 
-        Height="150" Width="300">
-    <Grid>
-        <!--<views:PomodoroView/>-->
-        <views:ShellView/>
+        Height="165" Width="500"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Grid Style="{StaticResource AppBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" 
+              Background="{StaticResource G}"
+              MouseDown="TitleBar_MouseDown">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Content="X"
+                        Click="CloseButtonClick" 
+                        Style="{StaticResource PomorilloButtonStyle1}"
+                        Width="30"/>
+
+                <Button Content="-"
+                        Click="MinimiseButtonClick"
+                        Style="{StaticResource PomorilloButtonStyle2}"
+                        Width="30"/>
+            </StackPanel>
+        </Grid>
+        
+        <views:ShellView Grid.Row="1" Margin="0 5"/>
     </Grid>
 </Window>

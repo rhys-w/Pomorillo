@@ -1,0 +1,112 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Pomorillo.WPFApplication.Style" xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <SolidColorBrush x:Key="A" Color="#ff6d00"/>
+    <SolidColorBrush x:Key="B" Color="#ff7900"/>
+    <SolidColorBrush x:Key="C" Color="#ff8500"/>
+    <SolidColorBrush x:Key="D" Color="#ff9100"/>
+    <SolidColorBrush x:Key="E" Color="#ff9e00"/>
+    <SolidColorBrush x:Key="F" Color="#240046"/>
+    <SolidColorBrush x:Key="G" Color="#3c096c"/>
+    <SolidColorBrush x:Key="H" Color="#5a189a"/>
+    <SolidColorBrush x:Key="I" Color="#7b2cbf"/>
+    <SolidColorBrush x:Key="J" Color="#9d4edd"/>
+
+    <system:Double x:Key="LargeFontSize">65</system:Double>
+    <system:Double x:Key="MediumFontSize">30</system:Double>
+    <system:Double x:Key="RegularFontSize">18</system:Double>
+    <system:Double x:Key="SmallFontSize">14</system:Double>
+
+        <!-- Background Grid. -->
+    <Style x:Key="AppBackground" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{StaticResource F}"/>
+    </Style>
+    
+    <!-- Toggle Button Rounded Style. -->
+    <Style x:Key="PomorilloToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="{StaticResource RegularFontSize}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border" 
+                            CornerRadius="12" 
+                            Background="{StaticResource I}"
+                            Margin="2">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" Margin="5 2"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource B}"/>
+                            
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Button Style 1. -->
+    <Style x:Key="PomorilloButtonStyle1" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="{StaticResource RegularFontSize}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            CornerRadius="12" 
+                            Background="{StaticResource C}" 
+                            Margin="2">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" Margin="5 2"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Button Style 2. -->
+    <Style x:Key="PomorilloButtonStyle2" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="{StaticResource RegularFontSize}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                            CornerRadius="12" 
+                            Background="{StaticResource J}"
+                            Margin="2">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" Margin="5 2"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Label Style. -->
+    <Style x:Key="PomorilloLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+    </Style>
+    
+    <!-- Coutndown Style. -->
+    <Style x:Key="PomorilloCountdownStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource B}"/>
+        <Setter Property="FontSize" Value="70"/>
+    </Style>
+    
+    <!-- TextBox Style.-->
+    <Style x:Key="PomorilloEnterTextStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+    </Style>
+</ResourceDictionary>
