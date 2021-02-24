@@ -9,7 +9,7 @@
   <Identity
     Name="44a91ce0-2f01-4169-b2c8-d06900dd3f9f"
     Publisher="CN=Rhys Wakeham"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>Pomorillo</DisplayName>
