@@ -191,6 +191,7 @@ namespace Pomorillo.WPFApplication.ViewModels
             IsPomodoroSelected = false;
             IsShortBreakSelected = false;
             IsLongBreakSelected = false;
+            _currentTimeSpan = TimeSpan.FromMinutes(_customTimeMins);
             RemainingTime = TimeSpan.FromMinutes(_customTimeMins);
             _currentCountdownType = CountdownType.Work;
         }
