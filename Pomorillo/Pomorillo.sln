@@ -11,6 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installer", "Installer", "{
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "Pomorillo.Installer", "Pomorillo.Installer\Pomorillo.Installer.wapproj", "{A65B3735-B551-4414-898B-9817C4134B3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{6B48D904-1326-4DD2-963A-1E7A3968D09C}"
+	ProjectSection(SolutionItems) = preProject
+		PomorilloPicture.png = PomorilloPicture.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
